@@ -118,10 +118,17 @@ print(not 0)
 ## 2.openresty
 
 ```nginx
+# content_by_lua_block
 location / {
     default_type text/html;
     content_by_lua_block {
         ngx.say("<p>Hello, OpenResty!</p>")
     }
+}
+
+# content_by_lua_block
+location / {
+    default_type text/html;
+    content_by_lua_file /etc/openresty/hello.lua;
 }
 ```
