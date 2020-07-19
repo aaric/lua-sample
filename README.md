@@ -105,4 +105,12 @@ repeat
   i = i + 1
 until i > 10
 
+--operator
+-- +,-,*,/,%,^,-
+-- ==,~=,>,<,>=,<=
+-- and,or,not
+print("\n--ch11--")
+print(a + b)
+print(a ~= b)
+print(not 0)
 ```
