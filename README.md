@@ -2,7 +2,7 @@
 
 > Lua Tests.
 
-## syntax
+## 1.syntax
 
 ```lua
 --[[
@@ -113,4 +113,15 @@ print("\n--ch11--")
 print(a + b)
 print(a ~= b)
 print(not 0)
+```
+
+## 2.openresty
+
+```nginx
+location / {
+    default_type text/html;
+    content_by_lua_block {
+        ngx.say("<p>Hello, OpenResty!</p>")
+    }
+}
 ```
