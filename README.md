@@ -117,18 +117,76 @@ print(not 0)
 
 ## 2.openresty
 
-```nginx
-# content_by_lua_block
-location /hello {
-    default_type text/html;
-    content_by_lua_block {
-        ngx.say("<p>Hello, OpenResty!</p>")
-    }
-}
-
-# content_by_lua_block
-location /hello {
-    default_type text/html;
-    content_by_lua_file /usr/local/openresty/luacustom/hello.lua;
-}
+```bash
+sh> cd /usr/local/openresty/lualib/redis
+sh> wget https://github.com/openresty/lua-resty-redis/raw/master/lib/resty/redis.lua
 ```
+
+```nginx
+    #lua_package_path "/usr/local/openresty/lualib/redis/redis.lua";
+
+    server {
+        listen       80;
+        server_name  localhost;
+
+        # content_by_lua_block
+        location /hello-lua {
+            default_type text/html;
+            content_by_lua_block {
+                ngx.say("<p>Hello, OpenResty!</p>")
+            }
+        }
+
+        # content_by_lua_block
+        location /hello-lua-file {
+            default_type text/html;
+            content_by_lua_file /usr/local/openresty/luacustom/hello.lua;
+        }
+
+        # lua-resty-redis
+        location /hello-lua-redis {
+            default_type text/html;
+            content_by_lua_block {
+                local redis = require "resty.redis"
+                local red = redis:new()
+
+                red:set_timeouts(1000, 1000, 1000) -- 1 sec
+
+                -- local ok, err = red:connect("127.0.0.1", 6379)
+                local ok, err = red:connect("192.168.56.200", 7001)
+                if not ok then
+                    ngx.say("failed to connect: ", err)
+                    return
+                end
+
+                local res, err = red:auth("redis2020")
+                if not res then
+                    ngx.say("failed to authenticate: ", err)
+                    return
+                end
+
+                ok, err = red:set("greet", "hello world")
+                if not ok then
+                    ngx.say("failed to set greet: ", err)
+                    return
+                end
+
+                ngx.say("set result: ", ok)
+
+                local res, err = red:get("greet")
+                if not res then
+                    ngx.say("failed to get greet: ", err)
+                    return
+                end
+
+                if res == ngx.null then
+                    ngx.say("greet not found.")
+                    return
+                end
+
+                ngx.say("greet: ", res)
+          }
+        }
+    }
+```
+
