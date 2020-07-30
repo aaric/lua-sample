@@ -153,7 +153,7 @@ server {
         content_by_lua_file /usr/local/openresty/luacustom/hello-redis.lua;
     }
   
- }
+}
 ```
 
 ### 2.3 /usr/local/openresty/luacustom/hello-redis.lua
