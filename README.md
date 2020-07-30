@@ -127,33 +127,33 @@ sh> wget https://github.com/openresty/lua-resty-redis/raw/master/lib/resty/redis
 ### 2.2 /etc/openresty/openresty.conf
 
 ```nginx
-    #lua_package_path "/usr/local/openresty/lualib/redis/redis.lua";
+#lua_package_path "/usr/local/openresty/lualib/redis/redis.lua";
 
-    server {
-        listen       80;
-        server_name  localhost;
+ server {
+     listen       80;
+     server_name  localhost;
 
-        # content_by_lua_block
-        location /hello-lua {
-            default_type text/html;
-            content_by_lua_block {
-                ngx.say("<p>Hello, OpenResty!</p>")
-            }
-        }
+     # content_by_lua_block
+     location /hello-lua {
+         default_type text/html;
+         content_by_lua_block {
+             ngx.say("<p>Hello, OpenResty!</p>")
+         }
+     }
 
-        # content_by_lua_block
-        location /hello-lua-file {
-            default_type text/html;
-            content_by_lua_file /usr/local/openresty/luacustom/hello.lua;
-        }
+     # content_by_lua_block
+     location /hello-lua-file {
+         default_type text/html;
+         content_by_lua_file /usr/local/openresty/luacustom/hello.lua;
+     }
 
-        # lua-resty-redis
-        location /hello-lua-redis {
-            default_type text/html;
-            content_by_lua_file /usr/local/openresty/luacustom/hello-redis.lua;
-        }
-     
-    }
+     # lua-resty-redis
+     location /hello-lua-redis {
+         default_type text/html;
+         content_by_lua_file /usr/local/openresty/luacustom/hello-redis.lua;
+     }
+  
+ }
 ```
 
 ### 2.3 /usr/local/openresty/luacustom/hello-redis.lua
