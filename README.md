@@ -175,7 +175,7 @@ server {
 }
 ```
 
-### 2.3 /usr/local/openresty/luacustom/hello-redis.lua
+### 2.3 /usr/local/openresty/luacustom/hello.lua
 
 ```lua
 --[[
@@ -183,6 +183,49 @@ OpenResty Lua Redis Tests
 
 @author Aaric
 @version 0.1.0-SNAPSHOT
+--]]
+
+-- hello world
+ngx.say("<p>Hello, Lua!")
+
+-- http get params
+local params = ngx.req.get_uri_args()
+for k, v in pairs(params) do
+  ngx.say("[GET] name: ", k, " value: ", v)
+  ngx.say("<br/>")
+end
+
+-- http post form
+ngx.req.read_body()
+
+local form = ngx.req.get_post_args()
+for k, v in pairs(form) do
+  ngx.say("[POST] name: ", k, " value: ", v)
+  ngx.say("<br/>")
+end
+
+-- http header
+local headers = ngx.req.get_headers()
+for k, v in pairs(headers) do
+  ngx.say("[HEADER] name: ", k, " value: ", v)
+  ngx.say("<br/>")
+end
+
+-- http body
+ngx.req.read_body()
+
+local body = ngx.req.get_body_data()
+ngx.say(body)
+```
+
+### 2.4 /usr/local/openresty/luacustom/hello-redis.lua
+
+```lua
+--[[
+OpenResty Lua Redis Tests
+
+@author Aaric
+@version 0.2.0-SNAPSHOT
 --]]
 
 local redis = require "resty.redis"
