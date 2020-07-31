@@ -152,7 +152,25 @@ server {
         default_type text/html;
         content_by_lua_file /usr/local/openresty/luacustom/hello-redis.lua;
     }
-  
+
+    # openresty-internal
+    location /AuthFiles {
+        internal;
+
+        if ($request_uri ~* ^.*\/(.*)\.(txt|doc|docx|rtf|rtfd|xls|xlsx|csv|ppt|pptx|pdf|zip|rar|tar|tar\.gz|xz|gz|bz2|bin|apk)(\?rename=([^&]+))$) {
+            add_header Content-Disposition "attachment;filename=$arg_rename.$2";
+        }
+        alias /var/www/files/;
+        expires 0;
+        allow all;
+    }
+
+    # ngx.exec
+    location /files {
+        content_by_lua_block {
+            ngx.exec("/AuthFiles/banzhuan.jpg", "filename=lua-test")
+        }
+    }
 }
 ```
 
