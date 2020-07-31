@@ -157,7 +157,8 @@ server {
     location /AuthFiles {
         internal;
 
-        if ($request_uri ~* ^.*\/(.*)\.(txt|doc|docx|rtf|rtfd|xls|xlsx|csv|ppt|pptx|pdf|zip|rar|tar|tar\.gz|xz|gz|bz2|bin|apk)(\?rename=([^&]+))$) {
+        # txt|doc|docx|rtf|rtfd|xls|xlsx|csv|ppt|pptx|pdf|zip|rar|tar|tar\.gz|xz|gz|bz2|bin|apk
+        if ($request_uri ~* ^.*\/(.*)\.(txt|doc|docx|xls|xlsx|csv|ppt|pptx|pdf|zip|tar\.gz|apk)(\?rename=([^&]+))$) {
             add_header Content-Disposition "attachment;filename=$arg_rename.$2";
         }
         alias /var/www/files/;
