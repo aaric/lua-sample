@@ -132,6 +132,9 @@ sh> wget https://github.com/openresty/lua-resty-redis/raw/master/lib/resty/redis
 server {
     listen       80;
     server_name  localhost;
+    
+    # get_body_data
+    lua_need_request_body on;
 
     # content_by_lua_block
     location /hello-lua {
