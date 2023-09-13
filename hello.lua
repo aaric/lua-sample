@@ -12,18 +12,19 @@ print(_VERSION)
 
 -- type
 print("\n--ch02--")
+local x
 print(type(x))
 print(type(type(x) == "nil"))
 print(type(3.14))
 print(type("lua"))
-array = {"cpp", "lua", "java"}
+local array = {"cpp", "lua", "java"}
 print(type(array))
-map = { lang1 = "cpp", lang2 = "lua", "java"}
+local map = { lang1 = "cpp", lang2 = "lua", "java"}
 print(type(map))
 
 --string
 print("\n--ch03--")
-html = [[
+local html = [[
 <html>
 <title>Document</tille>
 <body>
@@ -46,7 +47,7 @@ function add(a, b)
 end
 print(add(1, 1))
 ]]
-function add(...)
+local function add(...)
   print("param size: " .. select("#", ...))
   print("param index 1: " .. select(1, ...))
 
@@ -58,10 +59,10 @@ function add(...)
 end
 print(add(1, 2, 3, 4, 5))
 
---init
+--define
 print("\n--ch06--")
-a, b = 1, 2
-a, b = b, a
+local a, b = 1, 2
+local a, b = b, a
 print(a, b)
 print(a .. " + " .. b .. " = " .. add(a, b))
 
@@ -75,10 +76,10 @@ end
 
 --while
 print("\n--ch08--")
-i = 1
-while i <= 10 do 
-  print(i)
-  i = i + 1
+local counter = 1
+while counter <= 10 do 
+  print(counter)
+  counter = counter + 1
 end
 
 --for
@@ -92,7 +93,7 @@ end
 
 --repeat
 print("\n--ch10--")
-i = 1
+local i = 1
 repeat
   print(i)
   i = i + 1
@@ -106,3 +107,17 @@ print("\n--ch11--")
 print(a + b)
 print(a ~= b)
 print(not 0)
+
+print("\n--ch12--")
+local tb = {
+  aaa = 1,
+  bbb = 2,
+  ccc = 3
+}
+print(tb["aaa"])
+
+print("\n--ch13--")
+local ls = {"aaa", "bbb", "ccc"}
+for index, value in ipairs(ls) do
+  print(index, value)
+end
