@@ -109,15 +109,26 @@ print(a ~= b)
 print(not 0)
 
 print("\n--ch12--")
-local tb = {
+local tbList = {"aaa", "bbb", "ccc"}
+print(tbList[1])
+for index, value in ipairs(tbList) do
+  -- print(index, value)
+  if tbList[index] == "bbb" then
+    table.remove(tbList, index)
+    break
+  end
+end
+print(#tbList)
+
+local tbMap = {
   aaa = 1,
   bbb = 2,
   ccc = 3
 }
-print(tb["aaa"])
-
-print("\n--ch13--")
-local ls = {"aaa", "bbb", "ccc"}
-for index, value in ipairs(ls) do
-  print(index, value)
+print(tbMap["aaa"])
+local tbMapCount = 0
+for key, value in pairs(tbMap) do
+  tbMapCount = tbMapCount + 1
+  print(key, value)
 end
+print(tbMapCount)
