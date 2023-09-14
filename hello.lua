@@ -34,10 +34,22 @@ local html = [[
 ]]
 print(html)
 print(#html)
+print(tostring(123))
 
 --number
 print("\n--ch04--")
 print("1" + 1)
+print(tonumber("123"))
+
+--bool | nil = false, 0 = true
+local ba, bb, bn, bz = true, false, nil, 0
+print(ba and bb)
+print(ba or bb)
+print(not bb)
+print(bn and bz)
+print(bn or bz)
+print(not bz)
+print(bz >10 and "yes" or "no")
 
 --function
 print("\n--ch05--")
@@ -59,7 +71,7 @@ local function add(...)
 end
 print(add(1, 2, 3, 4, 5))
 
---define
+--eval
 print("\n--ch06--")
 local a, b = 1, 2
 local a, b = b, a
@@ -84,6 +96,9 @@ end
 
 --for
 print("\n--ch09--")
+for i = 1, 5 do
+  print(i)
+end
 for i = 1, #array, 1 do
   print(array[i])
 end
@@ -109,26 +124,33 @@ print(a ~= b)
 print(not 0)
 
 print("\n--ch12--")
+--table list
 local tbList = {"aaa", "bbb", "ccc"}
 print(tbList[1])
 for index, value in ipairs(tbList) do
-  -- print(index, value)
-  if tbList[index] == "bbb" then
-    table.remove(tbList, index)
-    break
-  end
+  print(index, value)
 end
+table.insert(tbList, 1, "zzz")
+print(table.remove(tbList, 1))
 print(#tbList)
 
+--table map
 local tbMap = {
   aaa = 1,
   bbb = 2,
-  ccc = 3
+  ccc = 3,
+  [",;"] = 4
 }
-print(tbMap["aaa"])
+print(tbMap[",;"])
 local tbMapCount = 0
 for key, value in pairs(tbMap) do
   tbMapCount = tbMapCount + 1
   print(key, value)
 end
 print(tbMapCount)
+print(_G["table"]["insert"])
+
+print("\n--ch13--")
+local str = string.char(0x30, 0x31, 0x32, 0x33)
+local c = string.byte(str, 1)
+print(str, c)
